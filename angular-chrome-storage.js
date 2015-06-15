@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module("chromeStorage",[])
-	.factory('chromeStorage', function($q) {
+	.factory('chromeStorage',['$q', function($q) {
 	var area = null;
 	try {
 		area = chrome.storage.local; // change this to chrome.storage.sync for sync capabilities
@@ -73,7 +73,7 @@ angular.module("chromeStorage",[])
 			totalBytes = data;
 		});
 	},
-    clearCache: function() {
+    	clearCache: function() {
 		// console.log('clearing local cache');
 		area.clear(function() {
 			if (chrome.runtime.lastError) {
@@ -83,7 +83,7 @@ angular.module("chromeStorage",[])
 	    	}
 		});
 	},
-	drop: function(key) {
+	remove: function(key) {
 		area.remove(key, function(){
 			if (chrome.runtime.lasterror){
 	            console.error(chrome.runtime.lasterror.message);
@@ -155,7 +155,7 @@ angular.module("chromeStorage",[])
 	forceGet: function(key, fallback) {
 		// console.log('getOrElse called with  cached key ' + key);
 		var deferred = $q.defer();
-        fallback().then(function(data) {
+        	fallback().then(function(data) {
 			keyValue = data;
 			// console.log("caching value for "+ key + " : " + angular.toJson(keyValue));
 			var saveObject = {};
@@ -177,6 +177,5 @@ angular.module("chromeStorage",[])
 	getQuota: function() {
 		return area.QUOTA_BYTES;
 	}
-
    }
-});
+}]);
