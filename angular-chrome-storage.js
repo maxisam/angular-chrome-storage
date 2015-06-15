@@ -105,10 +105,10 @@ angular.module("chromeStorage",[])
 	 * gets the value of key from the cache, or calls the fallback function, and populates the cache
 	 * with the value of the promise returned
 	 */
-	getOrElse: function(key, fallback) {
+	getOrDefault: function(key, fallback) {
 		// console.log('getOrElse called with  cached key ' + key);
 		var deferred = $q.defer();
-        area.get(key, function(value) {
+            area.get(key, function(value) {
         	// console.log('getOrElse then with cached key ' + key + " : " + angular.toJson(value));
         	var keyValue = value[key];
         	if (keyValue == undefined || keyValue == null) {
